@@ -19,27 +19,27 @@ Run `BatchQueueLauncher` to get a first impression.
 
 Create a render queue for texture items:
 ```
-		renderQueue = new BatchRenderQueue(MAX_LAYERS);
-		renderQueue.addItemClass(TextureBatchItem.class, new Pool<BatchRenderItem>() {
-			@Override
-			protected TextureBatchItem newObject() {
-				return new TextureBatchItem();
-			}
-		});
+	renderQueue = new BatchRenderQueue(MAX_LAYERS);
+	renderQueue.addItemClass(TextureBatchItem.class, new Pool<BatchRenderItem>() {
+		@Override
+		protected TextureBatchItem newObject() {
+			return new TextureBatchItem();
+		}
+	});
 ```
 Queue a batch item:
-```
-			TextureBatchItem batchItem = renderQueue.obtainItem(TextureBatchItem.class);
-			batchItem.setLayer(1);
-			batchItem.setTextureRegion(SPRITE_REGION);
-			batchItem.setLocation(123, 456);
-			batchItem.setColor(Color.WHITE);
+	```
+	TextureBatchItem batchItem = renderQueue.obtainItem(TextureBatchItem.class);
+	batchItem.setLayer(1);
+	batchItem.setTextureRegion(SPRITE_REGION);
+	batchItem.setLocation(123, 456);
+	batchItem.setColor(Color.WHITE);
 
-			renderQueue.queueItem(batchItem);
+	renderQueue.queueItem(batchItem);
 ```
 Draw all queued items:
 ```
-private void render(BatchRenderQueue renderQueue, SpriteBatch batch) {
+	private void render(BatchRenderQueue renderQueue, SpriteBatch batch) {
 		batch.begin();
 		long time = System.nanoTime();
 		renderQueue.render(batch, time);
