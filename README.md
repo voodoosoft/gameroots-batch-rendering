@@ -27,8 +27,9 @@ Create a render queue for texture items:
 		}
 	});
 ```
+
 Queue a batch item:
-	```
+```
 	TextureBatchItem batchItem = renderQueue.obtainItem(TextureBatchItem.class);
 	batchItem.setLayer(1);
 	batchItem.setTextureRegion(SPRITE_REGION);
@@ -37,6 +38,7 @@ Queue a batch item:
 
 	renderQueue.queueItem(batchItem);
 ```
+
 Draw all queued items:
 ```
 	private void render(BatchRenderQueue renderQueue, SpriteBatch batch) {
