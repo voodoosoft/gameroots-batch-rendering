@@ -15,7 +15,7 @@ The first sort criterium is always the layer (z-index) followed by individual cr
 In case the layer is the only relevant criterium, no actual sorting is performed for rendering because items are always presorted by layer when they are added to the render queue.
 
 ### Examples:
-Run `BatchQueueLauncher` to get a first impression.
+Run [BatchQueueLauncher](https://github.com/voodoosoft/gameroots-examples/tree/master/src/main/java/de/voodoosoft/gameroots/examples/batch) of the gameroots-examples project to get a first impression.
 
 Create a render queue for texture items:
 ```
