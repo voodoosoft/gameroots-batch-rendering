@@ -54,6 +54,7 @@ public class BatchRenderQueue {
 		}
 
 		itemPools = new ObjectMap<Class, Pool<BatchRenderItem>>();
+		empty = true;
 	}
 
 	/**
@@ -95,6 +96,7 @@ public class BatchRenderQueue {
 		}
 		int i = itemCount[layer]++;
 		items[i] = item;
+		empty = false;
 	}
 
 	/**
@@ -131,6 +133,10 @@ public class BatchRenderQueue {
 		reset(0, maxLayers);
 	}
 
+	public boolean isEmpty() {
+		return empty;
+	}
+
 	/**
 	 * Resets this render queue.
 	 * <p/>Typically called after or before rendering batches with <code>render</code>.
@@ -148,10 +154,12 @@ public class BatchRenderQueue {
 			}
 			this.itemCount[i] = 0;
 		}
+		empty = true;
 	}
 
 	private int maxLayers;
 	private ObjectMap<Class, Pool<BatchRenderItem>> itemPools;
 	private List<BatchRenderItem[]> itemLayers;
 	private int itemCount[];
+	private boolean empty;
 }
