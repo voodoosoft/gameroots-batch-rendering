@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
+import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BatchRenderItem;
 
 
 
@@ -46,7 +47,18 @@ public class TextBatchItem extends AbstractBatchItem implements Pool.Poolable {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	@Override
+	public int compareTo(BatchRenderItem otherItem) {
+		int result = super.compareTo(otherItem);
+		if (result == 0) {
+			if (otherItem instanceof TextBatchItem) {
+				TextBatchItem o = (TextBatchItem)otherItem;
+				result = Integer.compare(this.font.getRegion().getTexture().getTextureObjectHandle(), o.font.getRegion().getTexture().getTextureObjectHandle());
+			}
+		}
 
+		return result;
+	}
 	private Color color;
 	private float x, y;
 	private String text;

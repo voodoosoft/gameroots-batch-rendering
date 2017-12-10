@@ -120,7 +120,7 @@ public class BatchRenderQueue {
 			int itemCount = this.itemCount[i];
 			if (itemCount > 0) {
 				BatchRenderItem[] items = itemLayers.get(i);
-				Sort.instance().sort(items, 0, itemCount - 1);
+				//Sort.instance().sort(items, 0, itemCount - 1);
 
 				for (int j = 0; j < itemCount; j++) {
 					items[j].render(batch, time);

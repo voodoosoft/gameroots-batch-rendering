@@ -57,7 +57,10 @@ public abstract class AbstractBatchItem implements BatchRenderItem {
 		int result = 0;
 		if (otherItem instanceof AbstractBatchItem) {
 			AbstractBatchItem other = (AbstractBatchItem)otherItem;
-			result = this.blendMode.compareTo(other.blendMode);
+			result = Integer.compare(this.blendMode.getDestFunction(), other.blendMode.getDestFunction());
+			if (result == 0) {
+				result = Integer.compare(this.blendMode.getSrcFunction(), other.blendMode.getSrcFunction());
+			}
 		}
 
 		return result;

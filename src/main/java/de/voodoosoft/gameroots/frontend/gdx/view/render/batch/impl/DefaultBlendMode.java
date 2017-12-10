@@ -30,11 +30,6 @@ public enum DefaultBlendMode implements BlendMode<DefaultBlendMode> {
 		return srcFunction;
 	}
 
-	@Override
-	public boolean equals(BlendMode other) {
-		return this.srcFunction == other.getSrcFunction() && this.destFunction == other.getDestFunction();
-	}
-
 	int srcFunction;
 	int destFunction;
 }
