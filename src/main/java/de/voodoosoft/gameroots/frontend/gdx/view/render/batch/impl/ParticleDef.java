@@ -33,7 +33,8 @@ public class ParticleDef {
 		sharedTextureHandle = 0;
 		Array<ParticleEmitter> emitters = effect.getEmitters();
 		for (int i = 0; i < emitters.size; i++) {
-			Sprite sprite = emitters.get(i).getSprite();
+			Array<Sprite> sprites = emitters.get(i).getSprites();
+			Sprite sprite = sprites.get(0);
 			if (sprite != null) {
 				int tempHandle = sprite.getTexture().getTextureObjectHandle();
 				if (sharedTextureHandle == 0) {
