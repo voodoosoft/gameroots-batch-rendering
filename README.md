@@ -1,6 +1,6 @@
 # Sorted Batch Rendering for LibGdx
 ### Motivation
-This is a spin-off from the development of the game [Lethal Running](http://www.lethalrunning.com).
+This is a spin-off from the development of a 2d top-down game.
 In the beginning, rendering was split up into multiple classes and as the code base grew,
 it was tedious to keep the right order for rendering layers of tiles and sprite components.
 
