@@ -111,16 +111,8 @@ public class TextureBatchItem extends AbstractBatchItem implements Pool.Poolable
 			setLastShaderProgram(null);
 		}
 
-		if (isBlending()) {
-			batch.enableBlending();
-			BlendMode blendMode = getBlendMode();
-			if (!blendMode.equals(DefaultBlendMode.NONE)) {
-				batch.setBlendFunction(blendMode.getSrcFunction(), blendMode.getDestFunction());
-			}
-		}
-		else {
-			batch.disableBlending();
-		}
+		toggleBlending(batch);
+
 		if (color != null) {
 			batch.setColor(color);
 		}

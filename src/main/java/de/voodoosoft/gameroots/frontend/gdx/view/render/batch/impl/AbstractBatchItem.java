@@ -1,5 +1,6 @@
 package de.voodoosoft.gameroots.frontend.gdx.view.render.batch.impl;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BatchRenderItem;
 import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
@@ -64,6 +65,19 @@ public abstract class AbstractBatchItem implements BatchRenderItem {
 		}
 
 		return result;
+	}
+
+	protected void toggleBlending(SpriteBatch batch) {
+		if (isBlending()) {
+			batch.enableBlending();
+			BlendMode blendMode = getBlendMode();
+			if (!blendMode.equals(DefaultBlendMode.NONE)) {
+				batch.setBlendFunction(blendMode.getSrcFunction(), blendMode.getDestFunction());
+			}
+		}
+		else {
+			batch.disableBlending();
+		}
 	}
 
 	private BlendMode blendMode;
