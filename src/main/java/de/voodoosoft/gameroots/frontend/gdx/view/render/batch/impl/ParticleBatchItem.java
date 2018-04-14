@@ -3,7 +3,6 @@ package de.voodoosoft.gameroots.frontend.gdx.view.render.batch.impl;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
-import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BatchRenderItem;
 import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
 
 
@@ -17,7 +16,7 @@ import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
  * <p/>
  *
  */
-public class ParticleBatchItem extends AbstractBatchItem implements Pool.Poolable {
+public class ParticleBatchItem extends AbstractBatchItem<ParticleBatchItem> implements Pool.Poolable {
 	public ParticleBatchItem() {
 	}
 
@@ -89,13 +88,10 @@ public class ParticleBatchItem extends AbstractBatchItem implements Pool.Poolabl
 	}
 
 	@Override
-	public int compareTo(BatchRenderItem otherItem) {
+	public int compareTo(ParticleBatchItem otherItem) {
 		int result = super.compareTo(otherItem);
 		if (result == 0) {
-			if (otherItem instanceof ParticleBatchItem) {
-				ParticleBatchItem o = (ParticleBatchItem)otherItem;
-				result = Integer.compare(this.particleDef.getSharedTextureHandle(), o.getParticleDef().getSharedTextureHandle());
-			}
+			result = Integer.compare(this.particleDef.getSharedTextureHandle(), otherItem.getParticleDef().getSharedTextureHandle());
 		}
 
 		return result;

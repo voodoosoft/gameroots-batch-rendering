@@ -15,7 +15,7 @@ import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
  * <br/>2. layer
  * <br/>3. blend mode
  */
-public abstract class AbstractBatchItem implements BatchRenderItem {
+public abstract class AbstractBatchItem<T extends AbstractBatchItem> implements BatchRenderItem<T> {
 	public AbstractBatchItem() {
 	}
 
@@ -53,15 +53,12 @@ public abstract class AbstractBatchItem implements BatchRenderItem {
 		AbstractBatchItem.lastShaderProgram = lastShaderProgram;
 	}
 
+
 	@Override
-	public int compareTo(BatchRenderItem otherItem) {
-		int result = 0;
-		if (otherItem instanceof AbstractBatchItem) {
-			AbstractBatchItem other = (AbstractBatchItem)otherItem;
-			result = Integer.compare(this.blendMode.getDestFunction(), other.blendMode.getDestFunction());
-			if (result == 0) {
-				result = Integer.compare(this.blendMode.getSrcFunction(), other.blendMode.getSrcFunction());
-			}
+	public int compareTo(T other) {
+		int result = Integer.compare(this.blendMode.getDestFunction(), other.getBlendMode().getDestFunction());
+		if (result == 0) {
+			result = Integer.compare(this.blendMode.getSrcFunction(), other.getBlendMode().getSrcFunction());
 		}
 
 		return result;

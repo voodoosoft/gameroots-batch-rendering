@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Pool;
-import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BatchRenderItem;
 import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
 
 
@@ -12,7 +11,7 @@ import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
 /**
  * Batch item for rendering nine patches.
  */
-public class NinePatchBatchItem extends AbstractBatchItem implements Pool.Poolable {
+public class NinePatchBatchItem extends AbstractBatchItem<NinePatchBatchItem> implements Pool.Poolable {
 
 	public NinePatchBatchItem() {
 		width = -1;
@@ -127,7 +126,8 @@ public class NinePatchBatchItem extends AbstractBatchItem implements Pool.Poolab
 		if (rotation != 0) {
 			if (xOrigin != -1 && yOrigin != -1) {
 				ninePatch.draw(batch, x, y, xOrigin, yOrigin, width, height, 1, 1, rotation);
-			} else {
+			}
+			else {
 				float w = width != -1 ? width : ninePatch.getTotalWidth();
 				float h = height != -1 ? height : ninePatch.getTotalHeight();
 				ninePatch.draw(batch, x, y, w / 2f, h / 2f, w, h, 1, 1, rotation);
@@ -144,15 +144,12 @@ public class NinePatchBatchItem extends AbstractBatchItem implements Pool.Poolab
 	}
 
 	@Override
-	public int compareTo(BatchRenderItem otherItem) {
+	public int compareTo(NinePatchBatchItem otherItem) {
 		int result = super.compareTo(otherItem);
 		if (result == 0) {
-			if (otherItem instanceof NinePatchBatchItem) {
-				NinePatchBatchItem o = (NinePatchBatchItem)otherItem;
-				int thisHandle = this.ninePatch.getTexture().getTextureObjectHandle();
-				int otherHandle = o.ninePatch.getTexture().getTextureObjectHandle();
-				result = Integer.compare(thisHandle, otherHandle);
-			}
+			int thisHandle = this.ninePatch.getTexture().getTextureObjectHandle();
+			int otherHandle = otherItem.ninePatch.getTexture().getTextureObjectHandle();
+			result = Integer.compare(thisHandle, otherHandle);
 		}
 
 		return result;

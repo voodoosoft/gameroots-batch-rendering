@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Defines common methods for all batch item types.
  */
-public interface BatchRenderItem extends Comparable<BatchRenderItem> {
+public interface BatchRenderItem<T extends BatchRenderItem> {
 	/**
 	 * Returns the z-order of this item.
 	 *
@@ -22,4 +22,6 @@ public interface BatchRenderItem extends Comparable<BatchRenderItem> {
 	 * @param time current time in ns
 	 */
 	void render(SpriteBatch batch, long time);
+
+	int compareTo(T other);
 }

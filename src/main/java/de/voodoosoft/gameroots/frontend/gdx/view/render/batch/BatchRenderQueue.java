@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Sort;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -55,6 +56,10 @@ public class BatchRenderQueue {
 
 		itemPools = new ObjectMap<Class, Pool<BatchRenderItem>>();
 		empty = true;
+	}
+
+	public void setItemComparator(Comparator<BatchRenderItem> itemComparator) {
+		this.itemComparator = itemComparator;
 	}
 
 	/**
@@ -120,7 +125,7 @@ public class BatchRenderQueue {
 			int itemCount = this.itemCount[i];
 			if (itemCount > 0) {
 				BatchRenderItem[] items = itemLayers.get(i);
-				Sort.instance().sort(items, 0, itemCount - 1);
+				Sort.instance().sort(items, itemComparator, 0, itemCount - 1);
 
 				for (int j = 0; j < itemCount; j++) {
 					items[j].render(batch, time);
@@ -162,4 +167,5 @@ public class BatchRenderQueue {
 	private List<BatchRenderItem[]> itemLayers;
 	private int itemCount[];
 	private boolean empty;
+	private Comparator<BatchRenderItem> itemComparator;
 }

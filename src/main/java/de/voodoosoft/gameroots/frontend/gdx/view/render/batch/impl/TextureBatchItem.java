@@ -4,15 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
-import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BatchRenderItem;
-import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
 
 
 
 /**
  * Batch item for rendering textures.
  */
-public class TextureBatchItem extends AbstractBatchItem implements Pool.Poolable {
+public class TextureBatchItem extends AbstractBatchItem<TextureBatchItem> implements Pool.Poolable {
 
 	public TextureBatchItem() {
 		width = -1;
@@ -140,15 +138,12 @@ public class TextureBatchItem extends AbstractBatchItem implements Pool.Poolable
 	}
 
 	@Override
-	public int compareTo(BatchRenderItem otherItem) {
+	public int compareTo(TextureBatchItem otherItem) {
 		int result = super.compareTo(otherItem);
 		if (result == 0) {
-			if (otherItem instanceof TextureBatchItem) {
-				TextureBatchItem o = (TextureBatchItem)otherItem;
-				int thisHandle = this.getTextureRegion().getTexture().getTextureObjectHandle();
-				int otherHandle = o.getTextureRegion().getTexture().getTextureObjectHandle();
-				result = Integer.compare(thisHandle, otherHandle);
-			}
+			int thisHandle = this.getTextureRegion().getTexture().getTextureObjectHandle();
+			int otherHandle = otherItem.getTextureRegion().getTexture().getTextureObjectHandle();
+			result = Integer.compare(thisHandle, otherHandle);
 		}
 
 		return result;
