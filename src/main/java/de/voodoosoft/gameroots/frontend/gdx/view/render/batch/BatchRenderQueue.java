@@ -47,19 +47,25 @@ public class BatchRenderQueue {
 
 		this.maxLayers = maxLayers;
 		itemCount = new int[maxLayers];
+		sortLayers = new boolean[maxLayers];
+		sorter = Sort.instance();
 
-		itemLayers = new ArrayList<BatchRenderItem[]>();
+		itemLayers = new ArrayList<>();
 		for (int i = 0; i < maxLayers; i++) {
 			BatchRenderItem[] batchItems = new BatchRenderItem[initialCapacity];
 			itemLayers.add(batchItems);
 		}
 
-		itemPools = new ObjectMap<Class, Pool<BatchRenderItem>>();
+		itemPools = new ObjectMap<>();
 		empty = true;
 	}
 
 	public void setItemComparator(Comparator<BatchRenderItem> itemComparator) {
 		this.itemComparator = itemComparator;
+	}
+
+	public void setLayerSorting(int layer, boolean sort) {
+		sortLayers[layer] = sort;
 	}
 
 	/**
@@ -125,7 +131,9 @@ public class BatchRenderQueue {
 			int itemCount = this.itemCount[i];
 			if (itemCount > 0) {
 				BatchRenderItem[] items = itemLayers.get(i);
-				Sort.instance().sort(items, itemComparator, 0, itemCount - 1);
+				if (sortLayers[i]) {
+					sorter.sort(items, itemComparator, 0, itemCount);
+				}
 
 				for (int j = 0; j < itemCount; j++) {
 					items[j].render(batch, time);
@@ -166,6 +174,8 @@ public class BatchRenderQueue {
 	private ObjectMap<Class, Pool<BatchRenderItem>> itemPools;
 	private List<BatchRenderItem[]> itemLayers;
 	private int itemCount[];
+	private boolean sortLayers[];
 	private boolean empty;
 	private Comparator<BatchRenderItem> itemComparator;
+	private Sort sorter;
 }
