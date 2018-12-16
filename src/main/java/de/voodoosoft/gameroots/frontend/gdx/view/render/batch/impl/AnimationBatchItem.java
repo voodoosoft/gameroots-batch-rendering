@@ -1,5 +1,6 @@
 package de.voodoosoft.gameroots.frontend.gdx.view.render.batch.impl;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -32,6 +33,10 @@ public class AnimationBatchItem extends AbstractBatchItem implements Pool.Poolab
 		this.startTime = startTime;
 	}
 
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
 	@Override
 	public void render(SpriteBatch batch, long time) {
 		toggleBlending(batch);
@@ -41,10 +46,14 @@ public class AnimationBatchItem extends AbstractBatchItem implements Pool.Poolab
 		}
 		long stateTime = time - startTime;
 		TextureRegion frame = animation.getKeyFrame(stateTime / SECS_AS_NANO, true);
+		if (color != null) {
+			batch.setColor(color);
+		}
 		batch.draw(frame, x1, y1);
 	}
 
 	private Animation<TextureRegion> animation;
 	private float x1, y1;
 	private long startTime;
+	private Color color;
 }
