@@ -16,7 +16,7 @@ import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
  * <p/>
  *
  */
-public class ParticleBatchItem extends AbstractBatchItem<ParticleBatchItem> implements Pool.Poolable {
+public class ParticleBatchItem extends AbstractBatchItem implements Pool.Poolable {
 	public ParticleBatchItem() {
 	}
 
@@ -88,10 +88,11 @@ public class ParticleBatchItem extends AbstractBatchItem<ParticleBatchItem> impl
 	}
 
 	@Override
-	public int compareTo(ParticleBatchItem otherItem) {
+	public int compareTo(AbstractBatchItem otherItem) {
 		int result = super.compareTo(otherItem);
 		if (result == 0) {
-			result = Integer.compare(this.particleDef.getSharedTextureHandle(), otherItem.getParticleDef().getSharedTextureHandle());
+			ParticleBatchItem to = (ParticleBatchItem) otherItem;
+			result = Integer.compare(this.particleDef.getSharedTextureHandle(), to.getParticleDef().getSharedTextureHandle());
 		}
 
 		return result;

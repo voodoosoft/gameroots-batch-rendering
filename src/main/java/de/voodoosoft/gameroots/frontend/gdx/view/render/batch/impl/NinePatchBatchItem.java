@@ -11,7 +11,7 @@ import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
 /**
  * Batch item for rendering nine patches.
  */
-public class NinePatchBatchItem extends AbstractBatchItem<NinePatchBatchItem> implements Pool.Poolable {
+public class NinePatchBatchItem extends AbstractBatchItem implements Pool.Poolable {
 
 	public NinePatchBatchItem() {
 		width = -1;
@@ -144,11 +144,12 @@ public class NinePatchBatchItem extends AbstractBatchItem<NinePatchBatchItem> im
 	}
 
 	@Override
-	public int compareTo(NinePatchBatchItem otherItem) {
+	public int compareTo(AbstractBatchItem otherItem) {
 		int result = super.compareTo(otherItem);
-		if (result == 0) {
+		if (result == 0 && otherItem instanceof NinePatchBatchItem) {
+			NinePatchBatchItem no = (NinePatchBatchItem) otherItem;
 			int thisHandle = this.ninePatch.getTexture().getTextureObjectHandle();
-			int otherHandle = otherItem.ninePatch.getTexture().getTextureObjectHandle();
+			int otherHandle = no.ninePatch.getTexture().getTextureObjectHandle();
 			result = Integer.compare(thisHandle, otherHandle);
 		}
 

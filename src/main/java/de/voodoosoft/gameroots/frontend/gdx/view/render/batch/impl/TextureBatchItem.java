@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Pool;
 /**
  * Batch item for rendering textures.
  */
-public class TextureBatchItem extends AbstractBatchItem<TextureBatchItem> implements Pool.Poolable {
+public class TextureBatchItem extends AbstractBatchItem implements Pool.Poolable {
 
 	public TextureBatchItem() {
 		width = -1;
@@ -138,11 +138,12 @@ public class TextureBatchItem extends AbstractBatchItem<TextureBatchItem> implem
 	}
 
 	@Override
-	public int compareTo(TextureBatchItem otherItem) {
+	public int compareTo(AbstractBatchItem otherItem) {
 		int result = super.compareTo(otherItem);
-		if (result == 0) {
+		if (result == 0 && otherItem instanceof TextureBatchItem) {
+			TextureBatchItem to = (TextureBatchItem) otherItem;
 			int thisHandle = this.getTextureRegion().getTexture().getTextureObjectHandle();
-			int otherHandle = otherItem.getTextureRegion().getTexture().getTextureObjectHandle();
+			int otherHandle = to.getTextureRegion().getTexture().getTextureObjectHandle();
 			result = Integer.compare(thisHandle, otherHandle);
 		}
 

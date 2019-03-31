@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Pool;
 
 
 
-public class TextBatchItem extends AbstractBatchItem<TextBatchItem> implements Pool.Poolable {
+public class TextBatchItem extends AbstractBatchItem implements Pool.Poolable {
 	public TextBatchItem() {
 		setBlendMode(DefaultBlendMode.DEFAULT);
 	}
@@ -48,10 +48,11 @@ public class TextBatchItem extends AbstractBatchItem<TextBatchItem> implements P
 	}
 
 	@Override
-	public int compareTo(TextBatchItem otherItem) {
+	public int compareTo(AbstractBatchItem otherItem) {
 		int result = super.compareTo(otherItem);
 		if (result == 0) {
-			result = Integer.compare(this.font.getRegion().getTexture().getTextureObjectHandle(), otherItem.font.getRegion().getTexture().getTextureObjectHandle());
+			TextBatchItem to = (TextBatchItem) otherItem;
+			result = Integer.compare(this.font.getRegion().getTexture().getTextureObjectHandle(), to.font.getRegion().getTexture().getTextureObjectHandle());
 		}
 
 		return result;
