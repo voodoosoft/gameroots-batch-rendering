@@ -132,7 +132,12 @@ public class BatchRenderQueue {
 			if (itemCount > 0) {
 				BatchRenderItem[] items = itemLayers.get(i);
 				if (sortLayers[i]) {
-					sorter.sort(items, itemComparator, 0, itemCount);
+					try {
+						sorter.sort(items, itemComparator, 0, itemCount);
+					}
+					catch (Exception e) {
+						System.err.println(e.getMessage());
+					}
 				}
 
 				for (int j = 0; j < itemCount; j++) {

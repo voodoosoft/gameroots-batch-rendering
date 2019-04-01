@@ -45,11 +45,14 @@ public class AnimationBatchItem extends AbstractBatchItem implements Pool.Poolab
 			startTime = time;
 		}
 		long stateTime = time - startTime;
-		TextureRegion frame = animation.getKeyFrame(stateTime / SECS_AS_NANO, true);
-		if (color != null) {
-			batch.setColor(color);
+		int idx = animation.getKeyFrameIndex(stateTime / SECS_AS_NANO);
+		if (idx >= 0) {
+			TextureRegion frame = animation.getKeyFrames()[idx];
+			if (color != null) {
+				batch.setColor(color);
+			}
+			batch.draw(frame, x1, y1);
 		}
-		batch.draw(frame, x1, y1);
 	}
 
 	private Animation<TextureRegion> animation;
