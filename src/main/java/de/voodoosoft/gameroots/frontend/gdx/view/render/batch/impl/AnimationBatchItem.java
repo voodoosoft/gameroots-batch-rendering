@@ -55,8 +55,8 @@ public class AnimationBatchItem extends AbstractBatchItem implements Pool.Poolab
 		}
 	}
 
-	private Animation<TextureRegion> animation;
-	private float x1, y1;
-	private long startTime;
-	private Color color;
+	protected Animation<TextureRegion> animation;
+	protected float x1, y1;
+	protected long startTime;
+	protected Color color;
 }
