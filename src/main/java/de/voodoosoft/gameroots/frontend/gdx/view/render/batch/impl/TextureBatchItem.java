@@ -82,8 +82,20 @@ public class TextureBatchItem extends AbstractBatchItem implements Pool.Poolable
 		this.yOrigin = yOrigin;
 	}
 
+	public float getxOrigin() {
+		return xOrigin;
+	}
+
+	public float getyOrigin() {
+		return yOrigin;
+	}
+
 	public void setRotation(float rotation) {
 		this.rotation = rotation;
+	}
+
+	public float getRotation() {
+		return rotation;
 	}
 
 	public void setTextureRegion(TextureRegion textureRegion) {

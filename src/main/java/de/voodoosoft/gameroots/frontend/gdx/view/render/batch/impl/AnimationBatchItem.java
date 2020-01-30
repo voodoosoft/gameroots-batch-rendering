@@ -18,6 +18,9 @@ public class AnimationBatchItem extends AbstractBatchItem implements Pool.Poolab
 	@Override
 	public void reset() {
 		setBlendMode(DefaultBlendMode.DEFAULT);
+		startTime = 0;
+		color = null;
+		animation = null;
 	}
 
 	public void setAnimation(Animation<TextureRegion> animation) {

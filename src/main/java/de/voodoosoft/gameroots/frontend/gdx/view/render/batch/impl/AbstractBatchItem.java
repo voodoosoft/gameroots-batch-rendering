@@ -23,6 +23,14 @@ public abstract class AbstractBatchItem implements BatchRenderItem<AbstractBatch
 		this.layer = layer;
 	}
 
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
 	@Override
 	public int getLayer() {
 		return layer;
@@ -77,6 +85,7 @@ public abstract class AbstractBatchItem implements BatchRenderItem<AbstractBatch
 		}
 	}
 
+	private String tag;
 	private BlendMode blendMode;
 	private int layer;
 	private boolean blending;
