@@ -48,16 +48,7 @@ public class ParticleBatchItem extends AbstractBatchItem implements Pool.Poolabl
 			setLastShaderProgram(null);
 		}
 
-		if (isBlending()) {
-			batch.enableBlending();
-			BlendMode blendMode = getBlendMode();
-			if (!blendMode.equals(DefaultBlendMode.NONE)) {
-				batch.setBlendFunction(blendMode.getSrcFunction(), blendMode.getDestFunction());
-			}
-		}
-		else {
-			batch.disableBlending();
-		}
+		toggleBlending(batch);
 
 		float ex = particleDef.getEmitterX();
 		float ey = particleDef.getEmitterY();
@@ -88,14 +79,13 @@ public class ParticleBatchItem extends AbstractBatchItem implements Pool.Poolabl
 	}
 
 	@Override
-	public int compareTo(AbstractBatchItem otherItem) {
-		int result = super.compareTo(otherItem);
-		if (result == 0) {
-			ParticleBatchItem to = (ParticleBatchItem) otherItem;
-			result = Integer.compare(this.particleDef.getSharedTextureHandle(), to.getParticleDef().getSharedTextureHandle());
-		}
+	public int getTextureHandle() {
+		return particleDef != null ? particleDef.getSharedTextureHandle() : 0;
+	}
 
-		return result;
+	@Override
+	public String toString() {
+		return "" + getTextureHandle();
 	}
 
 	private final static long MILLIS_AS_NANO = 1000000l;

@@ -44,7 +44,6 @@ public class CircleBatchItem extends AbstractBatchItem implements Pool.Poolable 
 		if (color != null) {
 			shapeRenderer.setColor(color);
 		}
-//		shapeRenderer.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		shapeRenderer.circle(x1 - xOffset, y1 - yOffset, radius);
 	}
 

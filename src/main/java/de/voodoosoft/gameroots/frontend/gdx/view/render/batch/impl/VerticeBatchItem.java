@@ -61,16 +61,7 @@ public class VerticeBatchItem extends AbstractBatchItem implements Pool.Poolable
 			setLastShaderProgram(shaderProgram);
 		}
 
-		if (isBlending()) {
-			BlendMode blendMode = getBlendMode();
-			if (!blendMode.equals(DefaultBlendMode.NONE)) {
-				batch.setBlendFunction(blendMode.getSrcFunction(), blendMode.getDestFunction());
-			}
-			batch.enableBlending();
-		}
-		else {
-			batch.disableBlending();
-		}
+		toggleBlending(batch);
 
 		for (int i = 0; i < verticeIdx; i++) {
 			VerticeRegion verticeRegion = vertices.get(i);

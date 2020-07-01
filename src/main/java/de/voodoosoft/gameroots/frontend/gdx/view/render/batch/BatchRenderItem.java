@@ -23,5 +23,11 @@ public interface BatchRenderItem<T extends BatchRenderItem> {
 	 */
 	void render(SpriteBatch batch, long time);
 
-	int compareTo(T other);
+	BlendMode getBlendMode();
+
+	float getSortingX();
+
+	float getSortingY();
+
+	int getTextureHandle();
 }

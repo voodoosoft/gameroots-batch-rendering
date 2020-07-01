@@ -40,6 +40,7 @@ public abstract class AbstractBatchItem implements BatchRenderItem<AbstractBatch
 		this.layer = layer;
 	}
 
+	@Override
 	public BlendMode getBlendMode() {
 		return blendMode;
 	}
@@ -61,22 +62,28 @@ public abstract class AbstractBatchItem implements BatchRenderItem<AbstractBatch
 		AbstractBatchItem.lastShaderProgram = lastShaderProgram;
 	}
 
+	@Override
+	public float getSortingX() {
+		return 0;
+	}
 
 	@Override
-	public int compareTo(AbstractBatchItem other) {
-		int result = Integer.compare(this.blendMode.getDestFunction(), other.getBlendMode().getDestFunction());
-		if (result == 0) {
-			result = Integer.compare(this.blendMode.getSrcFunction(), other.getBlendMode().getSrcFunction());
-		}
+	public float getSortingY() {
+		return 0;
+	}
 
-		return result;
+	@Override
+	public int getTextureHandle() {
+		return 0;
 	}
 
 	protected void toggleBlending(SpriteBatch batch) {
 		if (isBlending()) {
-			batch.enableBlending();
+			if (!batch.isBlendingEnabled()) {
+				batch.enableBlending();
+			}
 			BlendMode blendMode = getBlendMode();
-			if (!blendMode.equals(DefaultBlendMode.NONE)) {
+			if (batch.getBlendSrcFunc() != blendMode.getSrcFunction() || batch.getBlendDstFunc() != blendMode.getDestFunction()) {
 				batch.setBlendFunction(blendMode.getSrcFunction(), blendMode.getDestFunction());
 			}
 		}
