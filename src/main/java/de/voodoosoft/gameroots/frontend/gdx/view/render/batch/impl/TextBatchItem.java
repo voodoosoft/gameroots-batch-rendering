@@ -23,8 +23,16 @@ public class TextBatchItem extends AbstractBatchItem implements Pool.Poolable {
 
     @Override
     public void render(SpriteBatch batch, long time) {
+        if (getLastShaderProgram() != null) {
+            batch.setShader(SpriteBatch.createDefaultShader());
+            setLastShaderProgram(batch.getShader());
+        }
+        toggleBlending(batch);
+
         if (color != null) {
             font.setColor(color);
+        } else {
+            font.setColor(Color.WHITE);
         }
         font.draw(batch, text, x, y);
     }

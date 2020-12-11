@@ -42,7 +42,17 @@ public class AnimationBatchItem extends AbstractBatchItem implements Pool.Poolab
 
     @Override
     public void render(SpriteBatch batch, long time) {
+        if (getLastShaderProgram() != null) {
+            batch.setShader(SpriteBatch.createDefaultShader());
+            setLastShaderProgram(batch.getShader());
+        }
         toggleBlending(batch);
+
+        if (color != null) {
+            batch.setColor(color);
+        } else {
+            batch.setColor(Color.WHITE);
+        }
 
         if (startTime == 0) {
             startTime = time;
