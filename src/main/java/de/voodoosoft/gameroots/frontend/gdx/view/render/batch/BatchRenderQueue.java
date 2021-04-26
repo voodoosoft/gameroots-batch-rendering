@@ -166,9 +166,11 @@ public class BatchRenderQueue {
 			int itemCount = this.itemCount[i];
 			for (int j = 0; j < itemCount; j++) {
 				BatchRenderItem batchItem = items[j];
-				Pool<BatchRenderItem> itemPool = itemPools.get(batchItem.getClass());
-				itemPool.free(batchItem);
-				items[j] = null;
+				if (batchItem.isAutoReset()) {
+					Pool<BatchRenderItem> itemPool = itemPools.get(batchItem.getClass());
+					itemPool.free(batchItem);
+					items[j] = null;
+				}
 			}
 			this.itemCount[i] = 0;
 		}

@@ -30,4 +30,6 @@ public interface BatchRenderItem<T extends BatchRenderItem> {
 	float getSortingY();
 
 	int getTextureHandle();
+
+	boolean isAutoReset();
 }

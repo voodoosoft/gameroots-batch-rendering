@@ -17,10 +17,21 @@ import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
  */
 public abstract class AbstractBatchItem implements BatchRenderItem<AbstractBatchItem> {
 	public AbstractBatchItem() {
+		autoReset = true;
 	}
 
 	public AbstractBatchItem(int layer) {
+		this();
 		this.layer = layer;
+	}
+
+	public void setAutoReset(boolean autoReset) {
+		this.autoReset = autoReset;
+	}
+
+	@Override
+	public boolean isAutoReset() {
+		return autoReset;
 	}
 
 	public void setTag(String tag) {
@@ -96,5 +107,6 @@ public abstract class AbstractBatchItem implements BatchRenderItem<AbstractBatch
 	private BlendMode blendMode;
 	private int layer;
 	private boolean blending;
+	private boolean autoReset;
 	private static ShaderProgram lastShaderProgram;
 }
