@@ -3,10 +3,22 @@ package de.voodoosoft.gameroots.frontend.gdx.view.render.batch.impl;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Pool;
 
 
 public class TextBatchItem extends AbstractBatchItem implements Pool.Poolable {
+    private static ShaderProgram shader;
+
+    private Color color;
+    private float x, y;
+    private String text;
+    private BitmapFont font;
+
+    public static void setShader(ShaderProgram shader) {
+        TextBatchItem.shader = shader;
+    }
+
     public TextBatchItem() {
         setBlendMode(DefaultBlendMode.DEFAULT);
     }
@@ -23,9 +35,9 @@ public class TextBatchItem extends AbstractBatchItem implements Pool.Poolable {
 
     @Override
     public void render(SpriteBatch batch, long time) {
-        if (getLastShaderProgram() != null) {
-            batch.setShader(SpriteBatch.createDefaultShader());
-            setLastShaderProgram(batch.getShader());
+        if (getLastShaderProgram() != shader) {
+            batch.setShader(shader);
+            setLastShaderProgram(shader);
         }
         toggleBlending(batch);
 
@@ -63,9 +75,4 @@ public class TextBatchItem extends AbstractBatchItem implements Pool.Poolable {
     public String toString() {
         return "" + getTextureHandle();
     }
-
-    private Color color;
-    private float x, y;
-    private String text;
-    private BitmapFont font;
 }

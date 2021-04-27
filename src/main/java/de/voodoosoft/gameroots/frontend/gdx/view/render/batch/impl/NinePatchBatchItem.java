@@ -100,9 +100,9 @@ public class NinePatchBatchItem extends AbstractBatchItem implements Pool.Poolab
 
     @Override
     public void render(SpriteBatch batch, long time) {
-        if (getLastShaderProgram() != null) {
-            batch.setShader(null);
-            setLastShaderProgram(null);
+        if (getLastShaderProgram() != defaultShader) {
+            batch.setShader(defaultShader);
+            setLastShaderProgram(defaultShader);
         }
 
         toggleBlending(batch);

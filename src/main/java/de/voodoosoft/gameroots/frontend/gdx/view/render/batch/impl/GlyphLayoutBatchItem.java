@@ -4,11 +4,23 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Pool;
 
 
 
 public class GlyphLayoutBatchItem extends AbstractBatchItem implements Pool.Poolable {
+	private static ShaderProgram shader;
+
+	private Color color;
+	private float x, y;
+	private GlyphLayout text;
+	private BitmapFont font;
+
+	public static void setShader(ShaderProgram shader) {
+		GlyphLayoutBatchItem.shader = shader;
+	}
+
 	public GlyphLayoutBatchItem() {
 		setBlendMode(DefaultBlendMode.DEFAULT);
 	}
@@ -25,9 +37,9 @@ public class GlyphLayoutBatchItem extends AbstractBatchItem implements Pool.Pool
 
 	@Override
 	public void render(SpriteBatch batch, long time) {
-		if (getLastShaderProgram() != null) {
-			batch.setShader(SpriteBatch.createDefaultShader());
-			setLastShaderProgram(batch.getShader());
+		if (getLastShaderProgram() != shader) {
+			batch.setShader(shader);
+			setLastShaderProgram(shader);
 		}
 		toggleBlending(batch);
 
@@ -56,9 +68,4 @@ public class GlyphLayoutBatchItem extends AbstractBatchItem implements Pool.Pool
 	public void setColor(Color color) {
 		this.color = color;
 	}
-
-	private Color color;
-	private float x, y;
-	private GlyphLayout text;
-	private BitmapFont font;
 }

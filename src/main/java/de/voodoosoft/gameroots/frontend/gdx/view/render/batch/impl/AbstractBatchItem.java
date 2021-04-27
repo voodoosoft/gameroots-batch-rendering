@@ -16,6 +16,10 @@ import de.voodoosoft.gameroots.frontend.gdx.view.render.batch.BlendMode;
  * <br/>3. blend mode
  */
 public abstract class AbstractBatchItem implements BatchRenderItem<AbstractBatchItem> {
+	public static void setDefaultShader(ShaderProgram defaultShader) {
+		AbstractBatchItem.defaultShader = defaultShader;
+	}
+
 	public AbstractBatchItem() {
 		autoReset = true;
 	}
@@ -109,4 +113,5 @@ public abstract class AbstractBatchItem implements BatchRenderItem<AbstractBatch
 	private boolean blending;
 	private boolean autoReset;
 	private static ShaderProgram lastShaderProgram;
+	protected static ShaderProgram defaultShader;
 }

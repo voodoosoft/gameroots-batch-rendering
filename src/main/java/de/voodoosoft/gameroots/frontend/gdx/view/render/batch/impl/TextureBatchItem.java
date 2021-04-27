@@ -115,9 +115,9 @@ public class TextureBatchItem extends AbstractBatchItem implements Pool.Poolable
 
     @Override
     public void render(SpriteBatch batch, long time) {
-        if (getLastShaderProgram() != null) {
-            batch.setShader(null);
-            setLastShaderProgram(null);
+        if (getLastShaderProgram() != defaultShader) {
+            batch.setShader(defaultShader);
+            setLastShaderProgram(defaultShader);
         }
 
         toggleBlending(batch);

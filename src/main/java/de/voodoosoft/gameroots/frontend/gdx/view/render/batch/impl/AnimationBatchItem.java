@@ -4,12 +4,19 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Pool;
 
 
 public class AnimationBatchItem extends AbstractBatchItem implements Pool.Poolable {
     public final static float MILLIS_AS_NANO = 1000000;
     public final static float SECS_AS_NANO = MILLIS_AS_NANO * 1000;
+
+    private static ShaderProgram shader;
+
+    public static void setShader(ShaderProgram shader) {
+        AnimationBatchItem.shader = shader;
+    }
 
     public AnimationBatchItem() {
         setBlendMode(DefaultBlendMode.DEFAULT);
@@ -42,9 +49,9 @@ public class AnimationBatchItem extends AbstractBatchItem implements Pool.Poolab
 
     @Override
     public void render(SpriteBatch batch, long time) {
-        if (getLastShaderProgram() != null) {
-            batch.setShader(SpriteBatch.createDefaultShader());
-            setLastShaderProgram(batch.getShader());
+        if (getLastShaderProgram() != shader) {
+            batch.setShader(shader);
+            setLastShaderProgram(shader);
         }
         toggleBlending(batch);
 

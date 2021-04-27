@@ -43,9 +43,9 @@ public class ParticleBatchItem extends AbstractBatchItem implements Pool.Poolabl
 
 	@Override
 	public void render(SpriteBatch batch, long time) {
-		if (getLastShaderProgram() != null) {
-			batch.setShader(null);
-			setLastShaderProgram(null);
+		if (getLastShaderProgram() != defaultShader) {
+			batch.setShader(defaultShader);
+			setLastShaderProgram(defaultShader);
 		}
 
 		toggleBlending(batch);
