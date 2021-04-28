@@ -38,6 +38,15 @@ public abstract class AbstractBatchItem implements BatchRenderItem<AbstractBatch
 		return autoReset;
 	}
 
+	public void setySorted(boolean ySorted) {
+		this.ySorted = ySorted;
+	}
+
+	@Override
+	public boolean isYSorted() {
+		return ySorted;
+	}
+
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
@@ -112,6 +121,7 @@ public abstract class AbstractBatchItem implements BatchRenderItem<AbstractBatch
 	private int layer;
 	private boolean blending;
 	private boolean autoReset;
+	private boolean ySorted;
 	private static ShaderProgram lastShaderProgram;
 	protected static ShaderProgram defaultShader;
 }
